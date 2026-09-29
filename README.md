@@ -34,7 +34,7 @@ Reading it:
 - Novo Nordisk is the reminder that a large, liquid name can still draw down **75%** in this window.
 - Beta and alpha are an OLS of daily excess returns on SPY. Annualized alpha is not a skill claim. Costs, taxes, and the fact that this list was picked in advance are all outside the regression.
 
-![Growth of 100](figures/growth_of_100.png)
+![Growth of 100, log scale. Equal-weight, equal-weight without NVIDIA, SPY, NVIDIA, and Novo Nordisk.](figures/growth_of_100.png)
 
 ![Risk and return](figures/risk_return.png)
 

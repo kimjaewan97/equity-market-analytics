@@ -160,8 +160,9 @@ def main() -> None:
     wealth = pd.DataFrame(wealth_parts).dropna(how="all")
 
     plot_wealth(
-        wealth[list(PORTFOLIO_TICKERS) + ["Equal weight", "Equal weight ex-NVDA", BENCHMARK]],
+        wealth[["Equal weight", "Equal weight ex-NVDA", BENCHMARK, "NVDA", "NVO"]],
         FIGURES / "growth_of_100.svg",
+        log_scale=True,
     )
     focus = prices[["NVDA", "NVO", "JPM", BENCHMARK]]
     plot_drawdowns(focus, FIGURES / "drawdowns.svg")

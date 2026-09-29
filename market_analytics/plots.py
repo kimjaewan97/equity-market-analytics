@@ -77,23 +77,25 @@ def _save(fig, path: Path) -> None:
     plt.close(fig)
 
 
-def plot_wealth(wealth: pd.DataFrame, path: Path) -> None:
+def plot_wealth(wealth: pd.DataFrame, path: Path, log_scale: bool = False) -> None:
     _style()
     fig, ax = plt.subplots(figsize=(11, 6.2))
+    emphasis = {"Equal weight", "Equal weight ex-NVDA", "SPY"}
     for i, column in enumerate(wealth.columns):
-        width = 2.2 if column in {"Equal weight", "SPY"} else 1.15
-        alpha = 1.0 if column in {"Equal weight", "SPY"} else 0.75
+        width = 2.3 if column in emphasis else 1.5
         ax.plot(
             wealth.index,
             wealth[column],
-            label=NAMES.get(column, column),
+        label={"Equal weight ex-NVDA": "Equal weight ex-NVIDIA"}.get(column, NAMES.get(column, column)),
             color=SERIES[i % len(SERIES)],
             lw=width,
-            alpha=alpha,
         )
     ax.axhline(100, color=MUTED, lw=0.6, zorder=0)
-    _finish(ax, "Growth of 100 — adjusted close, USD", "Index")
-    ax.legend(ncol=2, frameon=False, fontsize=8, loc="upper left")
+    if log_scale:
+        ax.set_yscale("log")
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda value, _pos: f"{value:.0f}"))
+    _finish(ax, "Growth of 100 — adjusted close, USD" + (" (log scale)" if log_scale else ""), "Index")
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
     _save(fig, path)
 
 
